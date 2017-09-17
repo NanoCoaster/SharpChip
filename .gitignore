@@ -1,2 +1,7 @@
-bin/*
-obj/*
+SharpChip/bin/*
+SharpChip/obj/*
+SharpChip/packages/*
+SharpChipTests/bin/*
+SharpChipTests/obj/*
+SharpChipTests/packages/*
+

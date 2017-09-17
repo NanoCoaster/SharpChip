@@ -15,7 +15,7 @@ let rec ToBcd x =
 // Constructor arguments can be used for testing
 type Cpu(?mmu: Mmu, ?pc: uint16, ?sp: int, ?i: uint16, 
          ?reg: uint8 [], ?dt: int, ?st: int) =
-    let mmu = mmu |? Mmu ()
+    let mmu = mmu |? Mmu ([|0uy|])
     let mutable pc = pc |? 0us
     let mutable sp = sp |? 0xEA0
     let mutable regI  = i |? 0us

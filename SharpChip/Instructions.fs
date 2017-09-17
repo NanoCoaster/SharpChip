@@ -11,8 +11,8 @@ let GetNibbles (number: uint16) =
     ]
 
 /// Shifts the values a b c together to create a 12-bit number
-let MakeAdress a b c = 
-    (((uint16 a <<< 8) ||| (uint16 b) <<< 4) ||| uint16 c)
+let MakeAddress a b c =
+    (uint16 a <<< 8) ||| (uint16 b <<< 4) ||| uint16 c
 
 /// Shifts a b together to create an 8-bit number
 let MakeByte a b =
@@ -70,8 +70,8 @@ let Decode opcode =
     match GetNibbles opcode with
     | [0; 0; 0xE; 0]   -> CLS
     | [0; 0; 0xE; 0xE] -> RET
-    | [1; a; b; c]     -> JP_NNN (MakeAdress a b c)
-    | [2; a; b; c]     -> CALL_NNN (MakeAdress a b c)
+    | [1; a; b; c]     -> JP_NNN (MakeAddress a b c)
+    | [2; a; b; c]     -> CALL_NNN (MakeAddress a b c)
     | [3; x; k1; k2]   -> SE_VX_KK (x, (MakeByte k1 k2))
     | [4; x; k1; k2]   -> SNE_VX_KK (x, (MakeByte k1 k2))
     | [5; x; y; 0]     -> SE_VX_VY (x, y)
@@ -87,8 +87,8 @@ let Decode opcode =
     | [8; x; y; 7]     -> SUBN_VX_VY (x, y)
     | [8; x; y; 0xE]   -> SHL_VX_VY x
     | [9; x; y; 0]     -> SNE_VX_VY (x, y)
-    | [0xA; a; b; c]   -> LD_I_NNN (MakeAdress a b c)
-    | [0xB; a; b; c]   -> JP_V0_NNN (MakeAdress a b c)
+    | [0xA; a; b; c]   -> LD_I_NNN (MakeAddress a b c)
+    | [0xB; a; b; c]   -> JP_V0_NNN (MakeAddress a b c)
     | [0xC; x; k1; k2] -> RND_VX_KK (x, (MakeByte k1 k2))
     | [0xD; x; y; n]   -> DRW_VX_VY_K (uint8 x, uint8 y, uint8 n)
     | [0xE; x; 9; 0xE] -> SKP_VX x
